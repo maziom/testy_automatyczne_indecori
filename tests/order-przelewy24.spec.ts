@@ -1,0 +1,32 @@
+import { test, expect } from '@playwright/test';
+
+test('order-przelewy24', async ({ page }) => {
+  await page.goto('https://indecori.pl/');
+  await page.getByRole('button', { name: 'OK' }).click();
+  await page.getByText('KategorieDeska').click();
+  await page.locator('#menu-item-11718').getByRole('link', { name: 'Deska Elewacyjna' }).click();
+  await page.goto('https://indecori.pl/sklep/produkt/zloty-dab-zestaw-1m2/');
+  await page.getByRole('button', { name: 'Dodaj do koszyka' }).click();
+  await page.getByRole('link', { name: 'Przejdź do realizacji zamó' }).click();
+  await page.getByRole('link', { name: 'Przejdź do kasy' }).click();
+  await page.getByLabel('Imię *', { exact: true }).click();
+  await page.getByLabel('Imię *', { exact: true }).press('CapsLock');
+  await page.getByLabel('Imię *', { exact: true }).fill('T');
+  await page.getByLabel('Imię *', { exact: true }).press('CapsLock');
+  await page.getByLabel('Imię *', { exact: true }).fill('Test');
+  await page.getByLabel('Imię *', { exact: true }).press('Tab');
+  await page.getByLabel('Nazwisko *', { exact: true }).fill('test');
+  await page.getByRole('textbox', { name: 'Ulica *' }).click();
+  await page.getByRole('textbox', { name: 'Ulica *' }).fill('ulicowa');
+  await page.getByRole('textbox', { name: 'Kod pocztowy *' }).click();
+  await page.getByRole('textbox', { name: 'Kod pocztowy *' }).fill('11-111');
+  await page.getByRole('textbox', { name: 'Kod pocztowy *' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Miasto *' }).fill('xxxxx');
+  await page.getByLabel('Numer telefonu *').click();
+  await page.getByLabel('Numer telefonu *').fill('123456789');
+  await page.getByLabel('Adres e-mail *').click();
+  await page.getByLabel('Adres e-mail *').fill('email@wp.pl');
+  await page.getByLabel('Przeczytałem/am i akceptuję').check();
+  await page.getByRole('button', { name: 'Kupuję i płacę' }).click();
+  await page.goto('https://go.przelewy24.pl/*/*');
+});

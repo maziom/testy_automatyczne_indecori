@@ -1,0 +1,35 @@
+import { test, expect } from '@playwright/test';
+
+test('order-inpost-paczkomat', async ({ page }) => {
+  await page.goto('https://indecori.pl/');
+  await page.getByRole('button', { name: 'OK' }).click();
+  await page.getByText('KategorieDeska').click();
+  await page.goto('https://indecori.pl/sklep/produkt/probki-desek-elewacyjnych-15-szt/');
+  await page.getByRole('button', { name: 'Dodaj do koszyka' }).click();
+  await page.getByRole('link', { name: 'Przejdź do realizacji zamó' }).click();
+  await page.getByRole('link', { name: 'Przejdź do kasy' }).click();
+  await page.getByLabel('Imię *', { exact: true }).click();
+  await page.getByLabel('Imię *', { exact: true }).press('CapsLock');
+  await page.getByLabel('Imię *', { exact: true }).fill('T');
+  await page.getByLabel('Imię *', { exact: true }).press('CapsLock');
+  await page.getByLabel('Imię *', { exact: true }).fill('Test');
+  await page.getByLabel('Imię *', { exact: true }).press('Tab');
+  await page.getByLabel('Nazwisko *', { exact: true }).fill('test');
+  await page.getByLabel('Nazwisko *', { exact: true }).press('Tab');
+  await page.getByRole('combobox', { name: 'Kraj / region' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Ulica *' }).fill('123');
+  await page.getByRole('textbox', { name: 'Ulica *' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Nr mieszkania, lokalu, itp. (' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Kod pocztowy *' }).fill('11-111');
+  await page.getByRole('textbox', { name: 'Kod pocztowy *' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Miasto *' }).fill('111');
+  await page.getByRole('textbox', { name: 'Miasto *' }).press('Tab');
+  await page.getByLabel('Numer telefonu *').fill('111111111');
+  await page.getByLabel('Numer telefonu *').press('Tab');
+  await page.getByLabel('Adres e-mail *').fill('email@wp.pl');
+  await page.getByText('InPost Paczkomat 24/7: 15,00zł').click();
+  await page.getByText('Wybierz paczkomat').click();
+  await page.getByLabel('Przeczytałem/am i akceptuję').check();
+  await page.getByRole('button', { name: 'Kupuję i płacę' }).click();
+  await page.goto('https://go.przelewy24.pl/*/*');
+});
